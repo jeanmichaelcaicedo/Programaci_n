@@ -79,10 +79,21 @@ void loop()
       Serial.println("cuchau");
       break;
 
-      case 'L': case 'l':
+      case 'L': case 'l': //regate al rival
       ServoDE.write(0);
       ServoIZQ.write(90);
       delay(3000);
+      ServoDE.write(90);
+      ServoIZQ.write(180);
+      delay(3000);
+      ServoDE.write(0);
+      ServoIZQ.write(180);
+      break;
+
+      case 'q': case 'Q': //regate 2 al rival
+      ServoDE.write(90);
+      ServoIZQ.write(90);
+      delay(6000);
       ServoDE.write(90);
       ServoIZQ.write(180);
       delay(3000);
