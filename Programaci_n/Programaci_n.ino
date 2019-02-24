@@ -82,10 +82,10 @@ void loop()
       case 'L': case 'l': //regate al rival
       ServoDE.write(0);
       ServoIZQ.write(90);
-      delay(3000);
+      delay(500);
       ServoDE.write(90);
       ServoIZQ.write(180);
-      delay(3000);
+      delay(700);
       ServoDE.write(0);
       ServoIZQ.write(180);
       break;
@@ -96,9 +96,25 @@ void loop()
       delay(6000);
       ServoDE.write(90);
       ServoIZQ.write(180);
-      delay(3000);
+      delay(700);
       ServoDE.write(0);
       ServoIZQ.write(180);
+      delay(3000);
+      ServoDE.write(90);
+      ServoIZQ.write(90);
+      delay(200);
+      break;
+
+      case 'x': case 'X': //pase a la derecha
+      ServoDE.write(180);
+      ServoIZQ.write(180);
+      Serial.println("Pase a la derecha");
+      break;
+
+      case 'z': case 'Z': //pase a la izquierda
+      ServoDE.write(0);
+      ServoIZQ.write(0);
+      Serial.println("Pase a la izquierda");
       break;
     }
   }
