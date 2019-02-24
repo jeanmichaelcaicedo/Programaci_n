@@ -5,8 +5,10 @@
 #define PINSERVOIZQUIERDO 11
 #define Txbluetooh 3
 #define Rxbluetooh 2
+#define Pecho 6
+#define Ptrig 7
 //define los pines
-
+long duracion,distancia; 
 Servo ServoDE,ServoIZQ;
 //da los nombres a cada servo
 SoftwareSerial BT(Rxbluetooh, Txbluetooh);//pines del bluetooh.
@@ -16,6 +18,8 @@ void setup()
 {
   pinMode (PINSERVODERECHO,OUTPUT);
   pinMode (PINSERVOIZQUIERDO,OUTPUT);
+  pinMode (Pecho,INPUT);
+  pinMode (Ptrig,OUTPUT);
   ServoDE.attach(PINSERVODERECHO);
   ServoIZQ.attach(PINSERVOIZQUIERDO);
   Serial.begin(9600);
@@ -23,15 +27,32 @@ void setup()
 
 }
 
-void loop() 
-{
+void loop(){
+   digitalWrite(Ptrig,LOW);
+  delay (100);
+  digitalWrite(Ptrig,HIGH);
+  delay (200);
+  digitalWrite (Ptrig,LOW);
+
+  duracion = pulseIn(Pecho,HIGH);
+  distancia = (duracion/2) / 29;
+
+if(distancia >= 500 || distancia <=0){
+  Serial.println("---");
+}
+
+else {
+  Serial.println(distancia);
+  Serial.println("cm");
+}
+ 
   if(BT.available()>0)
   {
     orden=BT.read();
     BT.println(orden);
   }
-  if(Serial.available() > 0)
-  {
+  if(Serial.available()>0)
+   {
     int orden=Serial.read();
     Serial.println(orden);
 
@@ -96,13 +117,19 @@ void loop()
       delay(6000);
       ServoDE.write(90);
       ServoIZQ.write(180);
-      delay(700);
+      delay(900);
+      ServoDE.write(0);
+      ServoIZQ.write(90);
+      delay(900);
+      ServoDE.write(90);
+      ServoIZQ.write(180);
+      delay(900);
+      ServoDE.write(0);
+      ServoIZQ.write(90);
+      delay(900);
       ServoDE.write(0);
       ServoIZQ.write(180);
-      delay(3000);
-      ServoDE.write(90);
-      ServoIZQ.write(90);
-      delay(200);
+      delay(700);
       break;
 
       case 'x': case 'X': //pase a la derecha
@@ -111,7 +138,7 @@ void loop()
       Serial.println("Pase a la derecha");
       delay (2000);
       ServoDE.write(90);
-      ServoIZQ.write(180);
+      ServoIZQ.write(180);   
       delay (2000);
       ServoDE.write(90);
       ServoIZQ.write(90);
@@ -131,5 +158,10 @@ void loop()
       delay (8000);
       break;
     }
-  }
-}
+
+  } 
+  
+ 
+  
+ }
+ 
