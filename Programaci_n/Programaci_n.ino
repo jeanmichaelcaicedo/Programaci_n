@@ -106,15 +106,29 @@ void loop()
       break;
 
       case 'x': case 'X': //pase a la derecha
-      ServoDE.write(180);
-      ServoIZQ.write(180);
+      ServoDE.write(90);
+      ServoIZQ.write(90);
       Serial.println("Pase a la derecha");
+      delay (2000);
+      ServoDE.write(90);
+      ServoIZQ.write(180);
+      delay (2000);
+      ServoDE.write(90);
+      ServoIZQ.write(90);
+      delay (8000);
       break;
 
       case 'z': case 'Z': //pase a la izquierda
-      ServoDE.write(0);
-      ServoIZQ.write(0);
+      ServoDE.write(90);
+      ServoIZQ.write(90);
       Serial.println("Pase a la izquierda");
+      delay (2000);
+      ServoDE.write(0);
+      ServoIZQ.write(90);
+      delay (2000);
+      ServoDE.write(90);
+      ServoIZQ.write(90);
+      delay (8000);
       break;
     }
   }
